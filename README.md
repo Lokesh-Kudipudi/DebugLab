@@ -20,37 +20,49 @@ Everything runs locally on your machine—no Docker or internet connection requi
 - Node.js & npm (for React problems)
 - Python 3 & pytest (for Python problems)
 
-### Build the CLI
+### macOS / Linux (Homebrew)
 
-Clone the repository and build the binary:
+The easiest way to install DebugLab is via Homebrew:
 
 ```bash
-git clone <repository-url>
-cd DebugLab
-go build -o dblab .
+brew tap Lokesh-Kudipudi/tap
+brew install dblab
 ```
 
-You can move the `dblab` binary to somewhere in your `$PATH` (e.g., `/usr/local/bin`) for easier access.
+### Windows & Manual Installation
+
+You can download the pre-compiled binaries for Windows, Linux, and macOS directly from the [GitHub Releases page](https://github.com/Lokesh-Kudipudi/DebugLab/releases).
+
+Extract the binary and place it somewhere in your system's `$PATH`.
 
 ## Usage Workflow
 
 The typical workflow involves choosing a problem, starting a session, fixing the code, and verifying it.
 
-### 1. List Available Problems
+### 1. Initialize a Workspace
+
+Navigate to an empty folder where you want to work and run:
 
 ```bash
-./dblab list
+dblab init
 ```
-Displays a table of all available problems, their difficulty, language (e.g., `react-javascript`, `python`), and your current status (`unsolved` or `✓ solved`).
+This creates a `./dblab-workspace/` directory and sets up the local SQLite database.
 
-### 2. Start a Debugging Session
+### 2. List Available Problems
 
 ```bash
-./dblab start <problem-name>
-# Example: ./dblab start react-syntax-error
+dblab list
+```
+Displays a table of all available problems fetched dynamically from GitHub. It shows difficulty, language, and your current status (`unsolved` or `✓ solved`).
+
+### 3. Start a Debugging Session
+
+```bash
+dblab start <problem-name>
+# Example: dblab start react-syntax-error
 ```
 This command:
-- Copies the problem files into `./dblab-workspace/<problem-name>/` in your current directory.
+- Downloads the specific problem files directly from GitHub into `./dblab-workspace/<problem-name>/`.
 - Initializes a fresh git repository in the workspace.
 - Starts a timer for your session.
 - Prints the "Bug Ticket" explaining the issue you need to fix.
@@ -70,7 +82,7 @@ npm install
 Once you think you've fixed the issue, run the verification command:
 
 ```bash
-./dblab verify <problem-name>
+dblab verify <problem-name>
 ```
 This runs the internal test suite (Jest or Pytest).
 - **If tests pass:** The timer stops, your score is calculated (out of 100), and the session is marked as completed.
@@ -79,7 +91,7 @@ This runs the internal test suite (Jest or Pytest).
 ### 5. Check Your Stats
 
 ```bash
-./dblab stats
+dblab stats
 ```
 Displays your aggregate statistics: problems attempted, problems solved, average/best scores, total time spent, and a log of recent sessions.
 
