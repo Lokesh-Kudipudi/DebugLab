@@ -47,13 +47,11 @@ var startCmd = &cobra.Command{
 			return nil
 		}
 
-		// Set up workspace in the current working directory
-		cwd, err := os.Getwd()
-		if err != nil {
-			return fmt.Errorf("cannot get current directory: %w", err)
+		if cfg == nil {
+			return fmt.Errorf("no workspace configured. Please run 'dblab init <directory>' first")
 		}
 
-		workspaceDir := filepath.Join(cwd, "dblab-workspace", problemName)
+		workspaceDir := filepath.Join(cfg.WorkspaceDir, problemName)
 
 		// Remove existing workspace if any
 		if err := os.RemoveAll(workspaceDir); err != nil {

@@ -46,17 +46,12 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 `
 
-// DefaultDBPath returns the default database path: ./dblab-workspace/dblab.db
-func DefaultDBPath() (string, error) {
-	cwd, err := os.Getwd()
-	if err != nil {
-		return "", fmt.Errorf("cannot get current directory: %w", err)
+// DBPath returns the database path in the given workspace directory.
+func DBPath(workspaceDir string) (string, error) {
+	if err := os.MkdirAll(workspaceDir, 0755); err != nil {
+		return "", fmt.Errorf("cannot create workspace directory: %w", err)
 	}
-	dir := filepath.Join(cwd, "dblab-workspace")
-	if err := os.MkdirAll(dir, 0755); err != nil {
-		return "", fmt.Errorf("cannot create dblab-workspace directory: %w", err)
-	}
-	return filepath.Join(dir, "dblab.db"), nil
+	return filepath.Join(workspaceDir, "dblab.db"), nil
 }
 
 // NewStore opens the SQLite database and runs migrations.

@@ -2,16 +2,16 @@ package cmd
 
 import (
 	"os"
-	"path/filepath"
 
 	"github.com/fatih/color"
+	"github.com/lokeshkudipudi/dblab/internal/config"
 	"github.com/lokeshkudipudi/dblab/internal/store"
 	"github.com/spf13/cobra"
 )
 
 var (
-	db          *store.Store
-	problemsDir string
+	db *store.Store
+	cfg *config.Config
 )
 
 var rootCmd = &cobra.Command{
@@ -38,40 +38,25 @@ func init() {
 }
 
 func initConfig() {
-	// Initialize database
-	dbPath, err := store.DefaultDBPath()
+	// Try loading configure, but don't fail immediately because `dblab init` doesn't need it
+	var err error
+	cfg, err = config.LoadConfig()
 	if err != nil {
-		color.Red("Error: %v", err)
+		// If running `dblab init` or `dblab help`, don't error out entirely
+		// We'll let the individual subcommands error out if they require a workspace
+		return
+	}
+
+	// Initialize database path from config
+	dbPath, err := store.DBPath(cfg.WorkspaceDir)
+	if err != nil {
+		color.Red("Error resolving DB path: %v", err)
 		os.Exit(1)
 	}
 
 	db, err = store.NewStore(dbPath)
 	if err != nil {
-		color.Red("Error: %v", err)
+		color.Red("Error opening DB: %v", err)
 		os.Exit(1)
 	}
-
-	// Find problems directory relative to executable
-	execPath, err := os.Executable()
-	if err != nil {
-		// Fallback to current directory
-		problemsDir = "problems"
-		return
-	}
-
-	// Check relative to executable
-	execDir := filepath.Dir(execPath)
-	candidate := filepath.Join(execDir, "problems")
-	if _, err := os.Stat(candidate); err == nil {
-		problemsDir = candidate
-		return
-	}
-
-	// Fallback to current working directory
-	cwd, err := os.Getwd()
-	if err != nil {
-		problemsDir = "problems"
-		return
-	}
-	problemsDir = filepath.Join(cwd, "problems")
 }

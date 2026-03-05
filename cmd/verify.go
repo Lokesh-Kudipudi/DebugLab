@@ -26,26 +26,21 @@ var verifyCmd = &cobra.Command{
 			return fmt.Errorf("no active session for %q. Run 'dblab start %s' first", problemName, problemName)
 		}
 
-		// Load the problem definition
-		problemPath, err := runner.GetProblemPath(problemsDir, problemName)
-		if err != nil {
-			return fmt.Errorf("could not find problem: %w", err)
+		if cfg == nil {
+			return fmt.Errorf("no workspace configured. Please run 'dblab init <directory>' first")
 		}
-		problem, err := runner.LoadProblem(problemPath)
-		if err != nil {
-			return fmt.Errorf("could not load problem definition: %w", err)
-		}
-
-		// Workspace path (in current working directory)
-		cwd, err := os.Getwd()
-		if err != nil {
-			return fmt.Errorf("cannot get current directory: %w", err)
-		}
-		workspaceDir := filepath.Join(cwd, "dblab-workspace", problemName)
+		
+		workspaceDir := filepath.Join(cfg.WorkspaceDir, problemName)
 
 		// Check workspace exists
 		if _, err := os.Stat(workspaceDir); os.IsNotExist(err) {
 			return fmt.Errorf("workspace not found at %s. Run 'dblab start %s' first", workspaceDir, problemName)
+		}
+
+		// Load the problem definition from the workspace
+		problem, err := runner.LoadProblem(workspaceDir)
+		if err != nil {
+			return fmt.Errorf("could not load problem definition: %w", err)
 		}
 
 		fmt.Println()
