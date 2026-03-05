@@ -1,0 +1,13 @@
+{
+  "name": "react-syntax-error",
+  "title": "Broken User Profile Component",
+  "difficulty": "easy",
+  "language": "react-javascript",
+  "par_time_minutes": 8,
+  "expected_files_to_fix": 2,
+  "ticket": "The user profile page crashes immediately on load. The console shows multiple syntax errors. Users cannot view or edit their profiles and the entire app white-screens.",
+  "hints": [
+    "Check the JSX return statements for missing closing tags or brackets",
+    "Look at the arrow function syntax in the event handlers"
+  ]
+}

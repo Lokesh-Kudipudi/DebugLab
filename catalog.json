@@ -1,0 +1,38 @@
+[
+  {
+    "name": "react-syntax-error",
+    "difficulty": "easy",
+    "language": "react-javascript",
+    "path": "problems/javascript/react-syntax-error"
+  },
+  {
+    "name": "react-event-handler",
+    "difficulty": "easy",
+    "language": "react-javascript",
+    "path": "problems/javascript/react-event-handler"
+  },
+  {
+    "name": "react-cart-total",
+    "difficulty": "easy",
+    "language": "react-typescript",
+    "path": "problems/typescript/react-cart-total"
+  },
+  {
+    "name": "react-async-fetch",
+    "difficulty": "medium",
+    "language": "react-typescript",
+    "path": "problems/typescript/react-async-fetch"
+  },
+  {
+    "name": "python-sort-filter",
+    "difficulty": "easy",
+    "language": "python",
+    "path": "problems/python/python-sort-filter"
+  },
+  {
+    "name": "python-api-parser",
+    "difficulty": "medium",
+    "language": "python",
+    "path": "problems/python/python-api-parser"
+  }
+]

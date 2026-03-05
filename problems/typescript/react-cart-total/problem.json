@@ -1,0 +1,13 @@
+{
+  "name": "react-cart-total",
+  "title": "Shopping Cart Total Bug",
+  "difficulty": "easy",
+  "language": "react-typescript",
+  "par_time_minutes": 10,
+  "expected_files_to_fix": 1,
+  "ticket": "Users report the cart total is wrong when they apply a discount code. The total sometimes goes negative and the checkout button still shows the wrong amount after removal.",
+  "hints": [
+    "Check the cart reducer for state mutations",
+    "Look at where the discount is subtracted — is it happening more than once?"
+  ]
+}

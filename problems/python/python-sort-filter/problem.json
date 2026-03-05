@@ -1,0 +1,13 @@
+{
+  "name": "python-sort-filter",
+  "title": "Broken List Sort and Filter",
+  "difficulty": "easy",
+  "language": "python",
+  "par_time_minutes": 8,
+  "expected_files_to_fix": 1,
+  "ticket": "The product listing API returns wrong results. When users sort by price, the response is empty. The pagination shows fewer items than expected, and filtering by category returns items from all categories.",
+  "hints": [
+    "Python's list.sort() returns None — it sorts in place. Compare with sorted() which returns a new list.",
+    "Check the range bounds in the pagination slice — is there an off-by-one error?"
+  ]
+}

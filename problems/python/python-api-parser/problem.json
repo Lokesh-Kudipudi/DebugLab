@@ -1,0 +1,13 @@
+{
+  "name": "python-api-parser",
+  "title": "Broken API Response Parser",
+  "difficulty": "medium",
+  "language": "python",
+  "par_time_minutes": 12,
+  "expected_files_to_fix": 1,
+  "ticket": "The API response parser is producing corrupted data. Parsing a second response somehow contains data from the first one. Error responses are silently swallowed instead of raising exceptions. And nested JSON objects are not being flattened correctly.",
+  "hints": [
+    "Watch out for mutable default arguments in Python — they persist between function calls",
+    "Check the exception handling — is a bare 'except' catching too much?"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "react-async-fetch",
+  "title": "Broken Data Fetching Hook",
+  "difficulty": "medium",
+  "language": "react-typescript",
+  "par_time_minutes": 12,
+  "expected_files_to_fix": 1,
+  "ticket": "The user list page shows a loading spinner forever on the first load. When navigating away and coming back, the app crashes with 'Cannot update state on an unmounted component'. Sometimes stale data from a previous search appears instead of the new results.",
+  "hints": [
+    "Check if the async function handles component unmounting with a cleanup function",
+    "Look at the dependency array and how the loading/error states are managed"
+  ]
+}

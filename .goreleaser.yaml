@@ -1,0 +1,54 @@
+env:
+  - CGO_ENABLED=1
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - env:
+      - CGO_ENABLED=1
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    # Optional: cross compiling CGO for Linux/macOS requires specialized setups
+    # We will build darwin natively and linux natively using GitHub Actions jobs
+
+archives:
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of uname.
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+# Homebrew Formula generation
+brews:
+  - name: dblab
+    repository:
+      owner: Lokesh-Kudipudi
+      name: homebrew-tap
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    description: "A CLI tool for practicing real-world debugging skills"
+    homepage: "https://github.com/Lokesh-Kudipudi/DebugLab"
+    test: |
+      system "#{bin}/dblab help"

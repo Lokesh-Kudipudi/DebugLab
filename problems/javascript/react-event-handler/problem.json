@@ -1,0 +1,13 @@
+{
+  "name": "react-event-handler",
+  "title": "Broken Event Handlers in Todo App",
+  "difficulty": "easy",
+  "language": "react-javascript",
+  "par_time_minutes": 10,
+  "expected_files_to_fix": 1,
+  "ticket": "Users report that the todo app is completely broken. Adding a todo refreshes the entire page, marking as done doesn't toggle properly, and the delete button removes the wrong item every time.",
+  "hints": [
+    "Check how form submission is handled — is the default browser behavior being prevented?",
+    "Look at how the toggle and delete callbacks reference each todo's id"
+  ]
+}

@@ -1,0 +1,8 @@
+[project]
+name = "python-sort-filter"
+version = "1.0.0"
+description = "Broken List Sort and Filter"
+requires-python = ">=3.8"
+dependencies = [
+    "pytest>=7.0.0",
+]
