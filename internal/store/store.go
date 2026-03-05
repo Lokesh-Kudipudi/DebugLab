@@ -81,17 +81,18 @@ func (s *Store) Close() error {
 // CreateSession creates a new debugging session.
 func (s *Store) CreateSession(problemName string) (*Session, error) {
 	now := time.Now()
-	result, err := s.db.Exec(
-		`INSERT INTO sessions (problem_name, started_at, status) VALUES (?, ?, 'started')`,
+	var id int
+	err := s.db.QueryRow(
+		`INSERT INTO sessions (problem_name, started_at, status) VALUES (?, ?, 'started') RETURNING id`,
 		problemName, now,
-	)
+	).Scan(&id)
+	
 	if err != nil {
 		return nil, fmt.Errorf("failed to create session: %w", err)
 	}
 
-	id, _ := result.LastInsertId()
 	return &Session{
-		ID:          int(id),
+		ID:          id,
 		ProblemName: problemName,
 		StartedAt:   now,
 		Status:      "started",
