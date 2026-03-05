@@ -26,7 +26,7 @@ The easiest way to install DebugLab is via Homebrew:
 
 ```bash
 brew tap Lokesh-Kudipudi/tap
-brew install dblab
+brew install Lokesh-Kudipudi/tap/dblab
 ```
 
 ### Windows & Manual Installation

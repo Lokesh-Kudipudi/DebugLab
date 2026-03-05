@@ -4,7 +4,9 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - env:
+  - id: dblab
+    binary: dblab
+    env:
       - CGO_ENABLED=0
     goos:
       - darwin
